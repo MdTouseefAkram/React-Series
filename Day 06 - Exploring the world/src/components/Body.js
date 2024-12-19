@@ -80,3 +80,8 @@ Top Rated Restaurants
 <RestaurantCard key={restaurant.data.id} resData={restaurant} />
 ))}
 </div>
+</div>
+);
+};
+
+export default Body;
