@@ -1,15 +1,19 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
 const Title = () => (
   <h1 className="head" tabIndex="5">
     React using JSX
   </h1>
 );
+
 // React Fragment - behaves like an empty tag
 const HeadingComponent = () => (
-  // <>
+  <>
     <div id="container">
       <Title />
       <h1 className="heaidng">React Fucntional Component</h1>
-/*
+/**
  * Header
  *  - Logo
  *  - Nav Items
@@ -25,6 +29,7 @@ const HeadingComponent = () => (
  *  - Address
  *  - Contact
  */
+
 const Header = () => {
   return (
     <div className="header">
@@ -45,8 +50,10 @@ const Header = () => {
     </div>
   );
 };
+
 const RestaurantCard = (props) => {
   const { resData } = props;
+
   const {
     cloudinaryImageId,
     name,
@@ -55,6 +62,7 @@ const RestaurantCard = (props) => {
     costForTwo,
     deliveryTime,
   } = resData?.data;
+
   return (
     <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
       <img
@@ -73,6 +81,7 @@ const RestaurantCard = (props) => {
     </div>
   );
 };
+
 const resList = [
   {
     type: "restaurant",
@@ -1957,6 +1966,7 @@ const resList = [
     subtype: "basic",
   },
 ];
+
 const Body = () => {
   return (
     <div className="body">
@@ -1969,12 +1979,13 @@ const Body = () => {
     </div>
   );
 };
+
 const AppLayout = () => {
   return (
     <div className="app">
       <Header />
       <Body />
-    </div>
+</div>
     <div id="container-2"></div>
   </>
 );
