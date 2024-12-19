@@ -1,4 +1,4 @@
-# React
+# React Series
 - Error Handling
 - HTTPs
 - Tree Shaking - remove unused code
