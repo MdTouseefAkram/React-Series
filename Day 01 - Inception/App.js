@@ -31,6 +31,7 @@ const parent = React.createElement("div", {id:"parent"}, [
 
 //Jsx can make this messy code easier
 console.log(parent); //object
+//ReactDOM.createElement not working
 const root = ReactDOM.createRoot(document.getElementById("header"));
 
 root.render(parent);
