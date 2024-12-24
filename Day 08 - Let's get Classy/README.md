@@ -70,4 +70,4 @@ React.Component is a class which is given to us by React and UserClass is class 
 # Mounting - Loading or invoke and Unmounting - unloading.
 # In Functional componen, React keep all state in one big object behind the scene.
 ## React Life Cycle
-## React is S.P.A , so if we setInterval in useEffetc or in componentDidMount so we need to clean this mess before leaving the page using clearInterval(). In class based component, we use this.varname is claerInetrval and in functional component, we simply write varname. Actaully we are doing here unmounting.
+## React is S.P.A , so if we setInterval in useEffect or in componentDidMount so we need to clean this mess before leaving the page using clearInterval(). In class based component, we use this.varname is claerInetrval and in functional component, we simply write varname. Actaully we are doing here unmounting.
