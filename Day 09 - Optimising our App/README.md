@@ -67,5 +67,5 @@ Easier to test: Custom hooks can be tested independently from the components tha
 # This is how we can distribute our app into smaller chunks(bundles).
 
 ## Two thing
-# 1. code spliiting or chunking for modularity and following single responsibility. It makes our app easy to read , maintable and easy for testable.
+# 1. code spliiting or chunking for modularity and following single responsibility principle. It makes our app easy to read , maintable and easy for testable.
 # 2. lazy loading - for optimising our App.
