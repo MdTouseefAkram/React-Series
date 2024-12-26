@@ -68,7 +68,7 @@ Tailwind automatically removes all unused CSS when building for production, whic
 
 Never be duplicate of css.
 
-# we can made dark mode very easy by tailwind by using "dark".
+# we can made dark mode very easily by tailwind using "dark" class.
 # Best way to start filling css by staring with margin and padding.
 
 # pros-
