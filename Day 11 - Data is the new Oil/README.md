@@ -70,7 +70,7 @@ const {loggedInUser} = useContext(userContext);
       </userContext.cosumer>
 # To modify context data in our App
 -- In real life, default value inside the context. Basically we can override the value of userContext.js and we can provide any value as we want in using .provider. For pass this new information in my context we use context.Provider.
-<userContext.Provider value = {loggedInUser : UserName}>
+<userContext.Provider value = {loggedInUser : UserName}> , here userName can be a string "Touseef" or it can be created in a state variable in App.js and here in this line we use it.
 
 --We wrap the whole App in App.js with contextProvider to modify the context value or data.
 
@@ -108,7 +108,7 @@ return (
 
 # Using <input/> in React, It create a input box.
 
-# To change username while we write in input box on the fly (To modify context data in our App on fly).
+# To change username while we write in input box on the fly (To modify context data in our App on the fly).
 -- If I write any name in input box, then it should update the context and reflect in UI. Basically we want to update username from Input Box.
 -- We are trying to update global space context on OnClick or OnChange.
 
@@ -119,10 +119,10 @@ In the context.Provider, we can pass setUserName function to modify itself on th
 We tied the userContext with userName state variable, when state variable gets changed then userContext gets modify on the fly and everywhere in my App , data gets changed.
 
 e.g In body.js
-
+import { useState, useContext } from "react";
 import UserContext from "../utils/UserContext";
 
- const { loggedInUser, setUserName } = useContext(UserContext);
+ const { loggedInUser, setUserName } = useContext(UserContext); // we fetch this data from userContext using useContext . How ? Because this setUserName is created in state varaiable in App.js , and this is root file and here load the whole App. And here using context.Provider, context data gets updated. so no need to pass props from App.js to Body.js to access setUserName.
 
  <input
             className="border border-black p-2"
