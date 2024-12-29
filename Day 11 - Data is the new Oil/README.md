@@ -1,6 +1,7 @@
 # React
 
-# Higher Order Component-  Higher order component is a function which takes a existing component as input and then it enhances that component. It adds some extra features to that component and return it back as new component. It acts like an enhancer. At the end of the day, its a normal JS function.
+# Higher Order Component-  
+Higher order component is a function which takes a existing component as input and then it enhances that component. It adds some extra features to that component and return it back as new component. It acts like an enhancer. At the end of the day, its a normal JS function.
 # use - if we want to emphasis on anything like , we want show cards with promoted label then we higher order component to do this.
 <RestaurantCrad {...props}/> - It will pass all the props that we receive. It will directly passing in restaurant card.
 Why we doing this? - Higher order component, It pass same data because it is a pure function. Pure function mean, we will not modify our RestaurantCard. we not change the code of component. We are enhancing on top of it by just adding extra features.
@@ -18,7 +19,7 @@ Why we doing this? - Higher order component, It pass same data because it is a p
 
 # Lifting my state up -- Sometimes, we want the state of two components to always change together. To do it, remove state from both of them, move it to their closest common parent and then pass it down to them via props. This is known as lifting state up.
 
-# How accordion work with state lifting up ? - When I click on single item list in accordion then basically setShowIndex() gets called in RestaurantCategory.js and this setShowIndex is basically different setShowIndex all the time.\
+# How accordion work with state lifting up ? - When I click on single item list in accordion then basically setShowIndex() gets called in RestaurantCategory.js and this setShowIndex is basically different setShowIndex all the time.
 
 #  “Controlled” (driven by props) or “Uncontrolled” (driven by state) component -- I don't want these RestaurantCategory to manage itself. I want restaurantMenu to controll all of these RestaurantCategory. I don't want RestaurantCategory have their own state but it should take my showItems as props. This is called controlled component because it controlled by RestaurantMenu.js.
 
