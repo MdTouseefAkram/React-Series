@@ -74,9 +74,10 @@ const {loggedInUser} = useContext(userContext);
 
 --We wrap the whole App in App.js with contextProvider to modify the context value or data.
 
---we can use the context.Provider for a specific portion of our App.
+# we can also use the context.Provider for a specific portion of our App.
 In App.js
 
+#1
 return (
   // Default value of context.
     <UserContext.Provider value={{ loggedInUser: userName}}>
@@ -89,15 +90,34 @@ return (
   );
 };
 
+#2
+return (
+  // Default value of context.
+    <UserContext.Provider value={{ loggedInUser: userName}}>
+    // Context value get changed.
+      <div className="app">
+      <UserContext.Provider value={{ loggedInUser: userName}}>
+      // context data chnaged again for this portion.
+        <Header />
+      </UserContext.Provider>
+        <Outlet />
+      </div>
+    </UserContext.Provider>
+  );
+};
+
 # Using <input/> in React, It create a input box.
 
-# To change username while we write in input box on the fly.
+# To change username while we write in input box on the fly (To modify context data in our App on fly).
 -- If I write any name in input box, then it should update the context and reflect in UI. Basically we want to update username from Input Box.
 -- We are trying to update global space context on OnClick or OnChange.
 
-In the context.Provider, we can pass setUserName function to modify itself on the fly when we write in input box. In App.js.
+In the context.Provider, we can pass setUserName function to modify itself on the fly when we write in input box. In App.js and we access setUserName in Body.js or anywhere in my App. we wrap this below line as we do preveios for modifying the context data but here we add setUserName also which it can be imported and will use in body to update context data from input box on fly.
+
 <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+
 We tied the userContext with userName state variable, when state variable gets changed then userContext gets modify on the fly and everywhere in my App , data gets changed.
+
 e.g In body.js
 
 import UserContext from "../utils/UserContext";
