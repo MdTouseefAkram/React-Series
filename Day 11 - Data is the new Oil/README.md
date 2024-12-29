@@ -32,3 +32,22 @@ Finally, pass the event handlers down so that the children can change the parent
 It’s useful to consider components as “controlled” (driven by props) or “uncontrolled” (driven by state).
 
 # Lifting state up is like using for controlling the components vai props.
+
+# Prop drilling-
+In React, prop drilling refers to the process of passing data from a parent component to a deeply nested child component by passing props through intermediate components and these intermediate components even don't need this prop data themselves.
+
+# The problem with passing props-
+Passing props is a great way to explicitly pipe data through your UI tree to the components that use it.
+
+But passing props can become verbose and inconvenient when you need to pass some prop deeply through the tree, or if many components need the same prop. The nearest common ancestor could be far removed from the components that need data, and lifting state up that high can lead to a situation called “prop drilling”.
+example-
+RestaurantMenu -> RestaurantCategory -> ItemList
+Pass Props  ----- Receive Props ----    Receive Props and use this props data. 
+                  and send to next deeper
+                  component ItemList.
+
+# Context: an alternative to passing props or to avoid prop drilling.
+Context, in React, is a way to pass data down through a component tree without having to pass props down through every level. This can be very helpful since this allows us to share data between components that are not directly related to each other.
+It allows the data to be accessed globally throughout the application and enable efficient state management.
+
+# Context is for state management, state get changed when data get changed.
