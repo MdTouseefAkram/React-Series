@@ -51,3 +51,77 @@ Context, in React, is a way to pass data down through a component tree without h
 It allows the data to be accessed globally throughout the application and enable efficient state management.
 
 # Context is for state management, state get changed when data get changed.
+# To create context - createContext()
+# To access or use context - useContext()
+
+ex - const data = useContext(userContext);
+Here useContext comes from react and userContext is context file name. we can directly extract loggedInUser data from this data from userContext.js file.
+
+const {loggedInUser} = useContext(userContext);
+
+-- For using context
+- Import useContext
+- Import the particular context file that we created in utils folder.
+  
+# In class based component, there is no Hooks.
+-- In class based component, we use to access or consume or read the context using a component <userContext.consumer>. userContext is context file name, it can be vary but .consumer is given by React to access context in class based component.
+ e.g <userComtext.consumer>
+     {(data) => console.log(data)}
+      </userContext.cosumer>
+# To modify context data in our App
+-- In real life, default value inside the context. Basically we can override the value of userContext.js and we can provide any value as we want in using .provider. For pass this new information in my context we use context.Provider.
+<userContext.Provider value = {loggedInUser : UserName}>
+
+--We wrap the whole App in App.js with contextProvider to modify the context value or data.
+
+--we can use the context.Provider for a specific portion of our App.
+In App.js
+
+return (
+  // Default value of context.
+    <UserContext.Provider value={{ loggedInUser: userName}}>
+    // Context value get changed.
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </UserContext.Provider>
+  );
+};
+
+# Using <input/> in React, It create a input box.
+
+# To change username while we write in input box on the fly.
+-- If I write any name in input box, then it should update the context and reflect in UI. Basically we want to update username from Input Box.
+-- We are trying to update global space context on OnClick or OnChange.
+
+In the context.Provider, we can pass setUserName function to modify itself on the fly when we write in input box. In App.js.
+<UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+We tied the userContext with userName state variable, when state variable gets changed then userContext gets modify on the fly and everywhere in my App , data gets changed.
+e.g In body.js
+
+import UserContext from "../utils/UserContext";
+
+ const { loggedInUser, setUserName } = useContext(UserContext);
+
+ <input
+            className="border border-black p-2"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+
+e is event.
+# we can use context.consumer many times.
+-- colclusion
+- To create context -- createContext()
+- To consume or read or access context in class based component - context.Consumer.
+- To modify context - context.Provider
+- To modify with input box on fly - context.Provider, setUserName.
+- Here setUserName is a function, whcih update the data in state variable using useEffect and it is used in context with updating value using input box.
+So, we can read my context anywhere we want to in my App.
+
+# Redux prefer, why?
+Redux is scalable. If we do with context, so we need to create different context for different data, like for cart context (cartContext.js), for userContext, for UI context, for theme context, there different context files will need to created in utils folder and if App grows then becomes cluttry.
+
+# React App is built using data layer and UI layer.
+
