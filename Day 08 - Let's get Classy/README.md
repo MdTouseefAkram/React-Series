@@ -1,73 +1,84 @@
-# React
+# Chapter 08 - Let's get Classy
 
-# Parcel
-- Dev Build
-- Local Server
-- HMR = Hot Module Replacement
-- File Watching Algorithm - written in C++
-- Caching - Faster Builds
-- Image Optimization
-- Minification
-- Bundling
-- Compress
-- Consistent Hashing
-- Code Splitting
-- Differential Bundling - support older browsers
-- Diagnostic
-- Error Handling
-- HTTPs
-- Tree Shaking - remove unused code
-- Different dev and prod bundles
-- Different dev and prod bundles
 
-# Food App
-/**
- * Header
- *  - Logo
- *  - Nav Items
- * Body
- *  - Search
- *  - RestaurantContainer
- *    - RestaurantCard
- *      - Img
- *      - Name of Res, Star Rating, cuisine, delery tie
- * Footer
- *  - Copyright
- *  - Links
- *  - Address
- *  - Contact
- */
- Two types of Export/Import
-- Default Export/Import
-export default Component;
-import Component from "path";
-- Named Export/Import
-export const Component;
-import {Component} from "path";
-# React Hooks
- (Normal JS utility functions)
-- useState() - Superpowerful State Variables in react
-- useEffect()
+## Q: How do you create `Nested Routes` react-router-dom configuration?
+A: We can create a `Nested Routes` inside a react router configuration as follows:
+first call createBrowserRouter for routing different pages
+```
+const router = createBrowserRouter([
+   {
+      path: "/", // show path for routing
+      element: <Parent />, // show component for particular path
+      errorElement: <Error />, // show error component for path is different
+      children: [ // show children component for routing
+         {
+            path: "/path",
+            element: <Child />
+         }
+      ],
+   }
+])
+```
+Now we can create a nested routing for `/path` using `children` again as follows:
 
-# React Hooks
- (Normal JS utility functions)
-- useState() - Superpowerful State Variables in react
-- useEffect()
-- useEffect()
-#  2 types Routing in web apps
- - Client Side Routing
- - Server Side Routing
-# useParams() Hook, Outlet, Route Provider,CreateBrowser, React-Router-Dom, UseEffect() Dependency, useRouteError(), children Route, Routing.
+```
+const router = createBrowserRouter([
+   {
+      path: "/",
+      element: <Parent />,
+      errorElement: <Error />,
+      children: [
+         {
+            path: "/path",
+            element: <Child />,
+            children: [ // nested routing for subchild
+               {
+                  path: "child",      // Don't use '/' because then react-router-dom will understand it's the direct path
+                  element: <SubChild />,
+               }
+            ],
+         }
+      ],
+   }
+])
+```
 
-## Class Based Component- It's a normal JS Class.
-It is a class which extends React.component and it has a render method that will return some piece of JSX.
 
-React.Component is a class which is given to us by React and UserClass is class name which is inheriting some property from it(React.Component).
+## Q: Read about `createHashRouter`, `createMemoryRouter` from React Router docs.
+A: `createHashRouter` is useful if you are unable to configure your web server to direct all traffic to your React Router application. Instead of using normal URLs, it will use the `hash (#)` portion of the URL to manage the "application URL".
+Other than that, it is functionally the same as `createBrowserRouter`.
+For more reference [Read more](https://reactrouter.com/en/main/routers/create-hash-router)
 
-# To recieve props in class based component is using contructor and super keyword to access for this keyword.
+`createMemoryRouter` Instead of using the browsers history a memory router manages it's own history stack in memory. It's primarily useful for testing and component development tools like Storybook, but can also be used for running React Router in any non-browser environment.
+For more reference [Read more](https://reactrouter.com/en/main/routers/create-memory-router)
 
-# Purpose of props- if we want to pass something dynamic data in component so we use props.
-# Mounting - Loading or invoke and Unmounting - unloading.
-# In Functional componen, React keep all state in one big object behind the scene.
-## React Life Cycle
-## React is S.P.A , so if we setInterval in useEffect or in componentDidMount so we need to clean this mess before leaving the page using clearInterval(). In class based component, we use this.varname is claerInetrval and in functional component, we simply write varname. Actaully we are doing here unmounting.
+
+## Q: What is the order of life cycle method calls in `Class Based Components`?
+A: Following is the order of lifecycle methods calls in `Class Based Components`:
+1. constructor()
+2. render ()
+3. componentDidMount()
+4. componentDidUpdate()
+5. componentWillUnmount()
+
+For more reference [React-Lifecycle-methods-Diagram](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
+
+## Q: Why do we use `componentDidMount`?
+A: The `componentDidMount()` method allows us to execute the React code when the component is already placed in the DOM (Document Object Model). This method is called during the Mounting phase of the React Life-cycle i.e after the component is rendered.
+We can run any piece of react code to modify the components. For ex. It's the best place to `make API calls`.
+
+
+## Q: Why do we use `componentWillUnmount`? Show with example.
+A: `componentWillUnmount()` is useful for the cleanup of the application when we switch routes from one place to another. Since we are working with a SPA(Single Page Application) the component process always runs in the background even if we switch to another route. So it is required to stop those processes before leaving the page. If we revisit the same page, a new process starts that affects the browser performance.
+For example, in Repo class, during `componentDidMount()` a timer is set with an interval of every one second to print in console. When the component is unmounted (users moves to a different page), the timer will be running in the background, which we might not even realize and causing huge performance issue. To avoid such situations the cleanup function can be done in componentWillUnmount, in this example `clearInterval`(timer) to clear the timer interval before unmounting Repo component.
+
+
+## Q: (Research) Why do we use `super(props)` in constructor?
+A: `super(props)` is used to inherit the properties and access variables of the React parent class when we initialize our component.
+super() is used inside constructor of a class to derive the parent's all properties inside the class that extended it. If super() is not used, then Reference Error : Must call super constructor in derived classes before accessing 'this' or returning from derived constructor is thrown in the console.
+The main difference between super() and super(props) is the this.props is undefined in child's constructor in super() but this.props contains the passed props if super(props) is used.
+
+
+## Q: (Research) Why can't we have the `callback function` of `useEffect async`?
+A: `useEffect` expects it's callback function to return nothing or return a function (cleanup function that is called when the component is unmounted). If we make the callback function as `async`, it will return a `promise` and the promise will affect the clean-up function from being called.
