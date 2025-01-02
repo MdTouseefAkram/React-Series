@@ -1,67 +1,63 @@
-# React Series
+# Chapter 07 - Finding the Path
 
-# Parcel
-- Dev Build
-- Local Server
-- HMR = Hot Module Replacement
-- File Watching Algorithm - written in C++
-- Caching - Faster Builds
-- Image Optimization
-- Minification
-- Bundling
-- Compress
-- Consistent Hashing
-- Code Splitting
-- Differential Bundling - support older browsers
-- Diagnostic
-- Error Handling
-- HTTPs
-- Tree Shaking - remove unused code
-- Different dev and prod bundles
-- Different dev and prod bundles
 
-# Food App
-/**
- * Header
- *  - Logo
- *  - Nav Items
- * Body
- *  - Search
- *  - RestaurantContainer
- *    - RestaurantCard
- *      - Img
- *      - Name of Res, Star Rating, cuisine, delery tie
- * Footer
- *  - Copyright
- *  - Links
- *  - Address
- *  - Contact
- */
- Two types of Export/Import
-- Default Export/Import
-export default Component;
-import Component from "path";
-- Named Export/Import
-export const Component;
-import {Component} from "path";
-# React Hooks
- (Normal JS utility functions)
-- useState() - Superpowerful State Variables in react
-- useEffect()
+## Q: What are various ways to `add images` into our App? Explain with `code examples`.
+A: Using the `full URL of the image` for the web (CDN) or any public images.
+Example : 
+```
+<img src="https://reactjs.org/logo-og.png" alt="React Image" />
+```
+Adding the image into the project 
+`Drag your image into your project` and `import it` into the desired component
+```
+import reactLogo from "./reactLogo.png";
+export default function App() {
+  return <img src={reactLogo} alt="react logo" />
+}
+```
+The correct way to structure images in your project is to add them in an `images` folder. If you are using other `assets` than just images, you might want to add all in the `assets` folders. 
+```
+import reactLogo from "../../assets/images/reactLogo.png";
+export default function App() {
+  return <img src={reactLogo} alt="react logo" />
+}
+```
 
-# React Hooks
- (Normal JS utility functions)
-- useState() - Superpowerful State Variables in react
-- useEffect()
-- useEffect()
-#  2 types Routing in web apps
- - Client Side Routing
- - Server Side Routing
-# useParams() Hook, Outlet, Route Provider,CreateBrowser, React-Router-Dom, UseEffect() Dependency, useRouteError(), children Route, Routing.
-# Outlet - the Outlet component is used to render child routes within a parent route, creating a nested routing structure.
- The Outlet component is a placeholder in your layout where the matched child route components will be rendered. It's particularly useful when you want different routes to share a common layout (e.g., Header and footer stay in UI but only body changes according to Route like About Us page but Header intact there on top). basically outlet is filled with component which is passed as a children into my parent component.
 
-# UseParams- The useParams hook in React Router means that the dynamic parts of URLs are just easy to access within the app. 
-useParams is a hook that allows you to have access to dynamic parameters in the URL. It comes from react-router-dom. 
-How to read resId?
-Params is an object with resId value. so we can use it to read the unique resId and make dynamic routing to acces easy by simple write resId in URL and get the data of the page, by using useParams() , we make our routing dynamic within the app  and easy accessible, just change the resId and we get data.
+## Q: What would happen if we do `console.log(useState())`?
+A: If we do `console.log(useState())`, we get an array `[undefined, function]`  where first item in an array is `state` is `undefined` and the second item in an array is `setState` `function` is bound dispatchSetState.
+
+
+## Q: How will `useEffect` behave if we `don't add` a `dependency array`?
+A: Syntax of `useEffect` is:
+```
+useEffect(() => {}, []);
+```
+Case 1 : When the `dependency array is not included` in the arguments of `useEffect() hook`, the callback function will be executed `every time` the component is rendered and re-rendered.
+```
+useEffect(() => {
+	console.log("I run everytime this component rerenders")
+});
+```
+Case 2 : When the `dependency array is empty` in the arguments of `useEffect() hook`, the callback function will be executed `only one time` during the initial render of the component.
+```
+useEffect(() => {
+	console.log("I Only run once (When the component gets mounted)")
+}, []);
+```
+Case 3 :  When the `dependency array contains a condition`,  the callback function will be executed  `one time` during the initial render of the component and also rerender if there is a `change in the condition`.
+```
+useEffect(() => {
+	console.log("I run every-time when my condition changed")
+}, [condition]);
+```
+
+
+## Q: What is `SPA`?
+A: `Single Page Application (SPA)` is a web application that dynamically updates the webpage with data from web server without reloading/refreshing the entire page. All the HTML, CSS, JS are retrieved in the initial load and other data/resources can be loaded dynamically whenever required. An SPA is sometimes referred to as a `single-page interface (SPI)`.
+
+
+## Q: What is the difference between `Client Side Routing` and `Server Side Routing`?
+A: In `Server-side routing or rendering (SSR)`, every change in URL, http request is made to server to fetch the webpage, and replace the current webpage with the older one. 
+
+In `Client-side routing or rendering (CSR)`, during the first load, the webapp is loaded from server to client, after which whenever there is a change in URL, the router library navigates the user to the new page without sending any request to backend. All `Single Page Applications uses client-side routing`. 
