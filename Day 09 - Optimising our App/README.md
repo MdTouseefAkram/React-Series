@@ -1,71 +1,74 @@
-# React
+# Chapter 09 - Optimizing our App
 
+## Q: When and why do we need `lazy()`?
 
-## What is React Custom Hook ?
-In React, custom hooks are JavaScript functions that let you extract component logic into reusable units. They allow you to:
-1. Share Logic: If you have the same logic repeated across multiple components, you can encapsulate it within a custom hook and reuse it effortlessly.
-2. Improve Readability: Custom hooks break down complex component logic into smaller, focused functions, making your code easier to read and understand.
-3. Manage State and Side Effects: You can use built-in hooks like useState and useEffect within your custom hook to manage state and interact with external systems.
-Naming Convention: Custom hooks must start with the word use, followed by a capital letter (e.g., useFetchData).
-## Need of custom hooks in react ?
-1. Reusability:
-Avoid repetition:
-Instead of writing the same logic in multiple components, encapsulate it within a custom hook and reuse it effortlessly.
-Share logic:
-Easily share stateful logic (e.g., fetching data, managing forms) across different parts of your application.
-2. Code Organization:
-Break down complexity:
-Split complex component logic into smaller, focused custom hooks, making your code more readable and maintainable.
-Improve separation of concerns:
-Each custom hook handles a specific piece of logic, leading to better structure and organization.
-3. Abstraction:
-Hide implementation details:
-Simplify component logic by abstracting complex operations behind a custom hook's interface.
-Focus on the "what," not the "how":
-Components can focus on their core purpose, leaving the implementation details to the custom hooks.
-4. Testing:
-Easier to test: Custom hooks can be tested independently from the components that use them, leading to more robust and reliable tests.
-## Common use cases for custom hooks:
-1.Data fetching: Fetching data from APIs and managing loading/error states.
-2.Form handling: Managing form state, validation, and submission logic.
-3.State management: Creating custom state management solutions tailored to your application's needs.
-4.Event handling: Handling complex event interactions like window resizing or scrolling.
-5.Animation: Creating reusable animation logic.
+A: `React.lazy() or lazy loading` is used to dynamically import components or a part of code must get loaded when it is required.
 
-# Single Responsibilty Principle - Suppose if we have a class or if you have any single identity of your code that should have single responsibility.
+Here are some of `the benefits of using lazy loading in React:`
 
-# Modularity -  Our code break down into small modules that it can become easy to maintain and easy for testing.
-# Custom Hooks follows the modularity.
-# Try to create custom Hook in utils folder.
-# Always prefer for sepaarte file for seperate Hooks.
-# Just like state variable inside component, we can create state variables inside custom Hook.
+`Improved initial load time:` Lazy loading can improve the initial load time of your application by reducing the amount of code that needs to be downloaded and parsed when the page first loads.
 
-## How to think logic of custom hook ?
-# Finalize the contract. i.e what is the input of custom Hook and what should we want to return from custom Hook to make follow single resposnibility both for component and custom Hook. In some case in custom Hook , we do not need any input as information e.g in case of checking online status, it not need input , it simply checks and return output.
+`Reduced memory usage:` Lazy loading can reduce the amount of memory that is used by your application by deferring the loading of resources until they are needed.
 
-## Online Event listener- This listener is used to find out or keep tracking whether the user is online or offline.
-# Window/browser gives this super power. we add only once time this event listener by using in useEffect.
-# functional component is JS function and Hooks is utility function.
+`Improved user experience:` Lazy loading can improve the user experience by making your application feel more responsive.
 
-# Bundling - It takes all your code file and make into in one file.
-## chunking - we do bundling but we try to make smaller bundles of our file. This process is known as chunking or code splitting.
-# We want to do logical separation of my bundles i.e means a bundle has enough code for a major feature in a website.
-# We can splitting our bundles into these logical chunks. so that request for JS file does not become so heavy that take so much time to load into browser.
+`When to use lazy loading:`
+For example, if a web page has an image that the user has to scroll down to see, you can display a placeholder and lazy load the full image only when the user arrives to its location.
 
-## lazy loading - lazy is a function is given by React and it import as named import.
--- In initially it will not load load the particular page , it will load this page , when we go to this page. This is also know as ondemand loading. # That's how we optimise our app.
--- The lazy takes a call back function and here we write import, here import is function, which has file component path.
-# while using lazy , we wrap the component path which will load later in suspense component with a placeholder fallback. It is kind of a loading screen. We can put here shimmer UI also.
-# We use lazy loading when our app grows.
+## Q: What is `suspense`?
 
-## optimising our App is very easy by using lazy loading.
--- Go to App.js (root file)
--- Dynamic import lazy loading of any component which we want to load later.
--- wrap this component inside suspense and write fallback placeholder.
--- It works now. these particular components comes in diifrenet bundle. Our App get optimised and fast.
+A: `Suspense` is a new feature in React 16.6 that `allows developers to display a fallback UI` while waiting for data to load. This can be useful for improving the perceived performance of your application, as users will not see a blank screen while they wait for data to fetch.
 
-# This is how we can distribute our app into smaller chunks(bundles).
+`To use Suspense,` you can wrap any component that fetches data in a `<Suspense>` component. The `<Suspense> component` will `render the fallback UI` until the data is loaded, and then it will render the wrapped component.
 
-## Two thing
-# 1. code spliiting or chunking for modularity and following single responsibility principle. It makes our app easy to read , maintable and easy for testable.
-# 2. lazy loading - for optimising our App.
+`For example,` the following code would `display a loading spinner` while the data is being fetched:
+
+```
+<Suspense fallback={<div>Loading...</div>}>
+  <MyComponent />
+</Suspense>
+```
+
+You can also `use Suspense to lazy load components.` This means that the component will not be loaded until it is actually needed, which can improve the performance of your application.
+
+`For example,` the following code would lazy load the MyComponent component:
+
+```
+const MyComponent = React.lazy(() => import('./MyComponent'));
+
+<Suspense fallback={<div>Loading...</div>}>
+  <MyComponent />
+</Suspense>
+```
+
+## Q: Why we got this `error`: A component was suspended while responding to `synchronous input`. This will cause the `UI` to be replaced with a `loading indicator`. To `fix this`, `updates that suspend` should be wrapped with `start transition`? How does `suspense fix` this error?
+
+A: This error is thrown as Exception by React when the promise to `dynamically import the lazy component` is not yet resolved and the Component is expected to render in the meantime. If only the dynamic import is done and there is `no <Suspense /> component` then this error is shown.
+
+React expects a Suspense boundary to be in place for showing a fallback prop until the promise is getting resolved. If showing `the shimmer (loading indicator)` is not desirable in some situations, then `startTransistion API` can used to show the old UI while new UI is being prepared. React do this without having to delete or remove the `Suspense component` or its props from your code.
+
+## Q: `Advantages and Disadvantages` of using this `code splitting pattern`?
+
+A: `Code splitting is a technique` that splits an application's `JavaScript bundle into smaller chunks`, which are loaded dynamically as needed. This allows an application to load only the code it needs at a given time, and load other bundles on demand.
+
+Code splitting can have `many benefits`, including:
+
+`Faster initial load time:` By only loading the necessary code for the initial view, code splitting can significantly improve the time it takes for the page to load. This can be especially helpful on slower network connections or devices.
+
+`Improved user experience:` Code splitting can allow users to interact with the application sooner, and non-essential code can be loaded asynchronously in the background to improve the overall responsiveness of the application.
+
+`Improved performance:` Code splitting can reduce the amount of JavaScript that needs to be parsed and executed.
+
+However, code splitting can also have `some drawbacks`, including:
+
+Increased complexity in development and testing processes
+
+More network requests that can affect performance
+
+Additional code and dependencies that can increase the bundle size
+
+## Q: `When` do we and `why do we need suspense`?
+
+A: `Suspense is a React feature` that allows developers to display a temporary UI while waiting for data to load. It's best used when you want to display a fallback while waiting for something to load, such as when waiting for data to be `fetched from an API after the initial page load.`
+
+Suspense is often used in conjunction with `React's dynamic import mechanism called lazy().` Lazy loading refers to the requirement that a component or portion of code will load only when it's needed. This functionality helps to minimize your application's loading speed and lower the initial bundle size.
